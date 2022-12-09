@@ -1,0 +1,50 @@
+import keras
+from keras.datasets import cifar10
+from keras.datasets.cifar10 import load_data
+import matplotlib
+import matplotlib.pyplot as plt
+import seaborn
+import numpy as np
+import tensorflow as tf
+import pandas as pd
+from tqdm.autonotebook import tqdm
+%matplotlib inline
+from IPython import display
+
+(trainImages, trainLabels),(testImages, testLabels) = cifar10.load_data()
+#
+print(trainImages.shape)
+print(trainLabels.shape)
+print(testImages.shape)
+print(testLabels.shape)
+#
+trainLabels = trainLabels.reshape(-1,)
+testLabels = testLabels.reshape(-1,)
+#
+print(trainLabels)
+#
+classLabels = ['Airplane', 'Automobile', 'Bird', 'Cat', 'Deer', 'Dog', 'Frog', 'Horse', 'Ship', 'Truck']
+#
+plt.imshow(trainImages[30])
+print(trainLabels[30])
+#
+plt.figure(figsize=(10,10))
+for i in range(25):
+  plt.subplot(5,5,i+1)
+  plt.xticks([])
+  plt.yticks([])
+  plt.grid(False)
+  plt.imshow(trainImages[i], cmap=plt.cm.binary)
+  plt.xlabel(classLabels[trainLabels[i]])
+
+plt.show()
+#
+seaborn.countplot(trainLabels.ravel())
+plt.title('Training Distribution')
+plt.xlabel('Classes')
+plt.ylabel('Amount of Images')
+#
+seaborn.countplot(testLabels.ravel())
+plt.title('Testing Distribution')
+plt.xlabel('Classes')
+plt.ylabel('Amount of Images')
